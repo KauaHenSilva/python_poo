@@ -3,7 +3,9 @@ server: all install_requeriments_server run_server
 cliente: all install_requeriments_cliente run_cliente
 
 install_depedencia:
+	@sudo apt-get update
 	@sudo apt-get install python3-venv python3-pip docker.io docker-compose python3-poetry -y
+	@sudo apt install libxcb-xinerama0 libxcb-xinerama0-dev libxcb1 libxcb1-dev libxkbcommon-x11-0 -y
 
 venv:
 	@test -d .venv || python3 -m venv .venv
