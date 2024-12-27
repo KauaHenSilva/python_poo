@@ -48,18 +48,12 @@ cd Projeto-Final-POO-II
 
 3. 🐍 Crie um ambiente virtual e ative-o:
 
-> Windows
+> Linux / wsl
 
 ```bash
-python -m venv venv
-./venv\Scripts\activate.sh
-```
-
-> Linux
-
-```bash
-python3 -m venv venv
-./venv/bin/activate
+python3 -m venv .venv
+chmod +x ./.venv/bin/activate
+./.venv/bin/activate
 ```
 
 ### 🚀 Usage
@@ -67,32 +61,20 @@ python3 -m venv venv
 Agora o projeto está configurado. Você pode executá-lo com os seguintes comandos:
 
 #### Executação de todos os projetos
-> Executação de todos os serviços
+
+> Instalação das dependências
 ```bash
-docker-compose up --build
+make install_depedencia
 ```
 
-#### Executação de cada projeto separadamente
+#### Executação de cada tela
 
-> Executação do banco de dados
+> Executação do server
 ```bash
-docker-compose up -d redis postgres 
+make server
 ```
 
-> Executação do worker
+> Executação do cliente (ALERTA: O cliente funciona apenas com o server em execução)
 ```bash
-pip install -r "worker\requirements.txt"
-python worker\main.py
-```
-
-> Executação do script_redis
-```bash
-pip install -r "script_redis\requirements.txt"
-python script_redis\main.py
-```
-
-> Executação do service
-```bash
-pip install -r "service\requirements.txt"
-python service\main.py
+make cliente
 ```
