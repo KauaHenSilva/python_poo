@@ -60,7 +60,7 @@ chmod +x ./.venv/bin/activate
 
 Agora o projeto está configurado. Você pode executá-lo com os seguintes comandos:
 
-#### Executação de todos os projetos
+#### Instalação das dependências para o projeto
 
 > Instalação das dependências
 ```bash
