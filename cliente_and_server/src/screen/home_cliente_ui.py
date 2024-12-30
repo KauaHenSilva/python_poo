@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog
 from PyQt5 import uic
-from src.screen.exibir_pedido import DialogoExibirProduto
+from src.screen.dialogo_exibir_pedido import DialogoExibirProduto
 from src.screen.dialogo_efetivar_pedido import DialogoEfetivarPedido
-from src.func.sincronizacao import enviar_mensagem_de_sincronizacao, iniciar_cliente_sincronizado
+from src.func.sincronizacao import enviar_mensagem_de_sincronizacao_cliente, iniciar_cliente_sincronizado
 from src.func.func_pedidos_desenvolvimento import (
     pegar_pedidos_em_desenvolvimento_str,
     adicionar_pedido_em_desenvolvimento,
@@ -71,7 +71,7 @@ class Home(QMainWindow):
     def editar_status_pedido(self):
         status = self.comboBox_status_do_pedido.currentText()
         editar_status_pedido(self.current_pedido_id, status)
-        enviar_mensagem_de_sincronizacao("sync_pedido")
+        enviar_mensagem_de_sincronizacao_cliente("sync_pedido")
         
 
     def logica_de_sincronizacao(self, msg):
@@ -195,6 +195,6 @@ class Home(QMainWindow):
             numero_de_mesa = dialogo_confirmacao.lineEdit_numero_da_mesa.text()
             status = dialogo_confirmacao.comboBox_status.currentText()
             inserir_pedido(transformar_lista_str_em_lista_tuple(pedidos_em_desenvolvimento), numero_de_mesa, status)
-            enviar_mensagem_de_sincronizacao("sync_pedido")
+            enviar_mensagem_de_sincronizacao_cliente("sync_pedido")
         else:
             QMessageBox.warning(self, "Aviso", "Pedido cancelado")

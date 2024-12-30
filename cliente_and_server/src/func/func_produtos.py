@@ -1,5 +1,5 @@
+from typing import Tuple, Union
 import json
-from typing import Union
 from funcao_postgree.bd_postgree_produto import BdProduto
 
 bd_produto = BdProduto()
@@ -24,7 +24,7 @@ def remover_produto(id_product: str) -> bool:
     return status
 
 
-def pegar_todos_itens_str():
+def pegar_todos_itens_str() -> list[str]:
     produtos = []
     for product in bd_produto.get_all():
         id = product[0]
@@ -34,3 +34,4 @@ def pegar_todos_itens_str():
         produtos.append(f"ID: {id}, Nome: {nome}, Preço: {preco}, Status: {disponivel}")
     
     return produtos
+  

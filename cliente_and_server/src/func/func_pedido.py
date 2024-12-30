@@ -5,6 +5,21 @@ from funcao_postgree.bd_postgree_pedido_produto import BdPedidoProduto
 bd_pedido = BdPedido()
 bd_pedido_produto = BdPedidoProduto()
 
+def transformar_lista_str_em_lista_tuple(lista: list[str]) -> list[Tuple[str, int]]:
+    lista_tuple = []
+    for item in lista:
+        item_split = item.split(", ")
+        id = item_split[0].split(": ")[1]
+        preco = float(item_split[2].split(": ")[1])
+        qtd = int(item_split[3].split(": ")[1])
+        lista_tuple.append((id, preco, qtd))
+    
+    return lista_tuple
+
+def editar_status_pedido(id_pedido: str, status: str) -> bool:
+    status = bd_pedido.editar_status(status, id_pedido)
+    return status
+
 def inserir_pedido(produtos: list[Tuple[int, float, int]], mesa: int, status: str) -> bool:
     list_pedidos_dict = []
     for pedido in produtos:

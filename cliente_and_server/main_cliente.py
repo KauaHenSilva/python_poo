@@ -18,10 +18,21 @@ Execução:
 #     Cliente()()
 
 import sys
-from PyQt5.QtWidgets import QApplication
-from src.screen.home_ui import Home
+from sincronizacao_servidor_cliente.cliente_sincronizacao import ErroCliente
+from src.screen.autenticacao import Autenticacao
+from PyQt5.QtWidgets import QApplication, QMessageBox 
+from src.screen.home_cliente_ui import Home
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = Home()
+    autenticacao = Autenticacao()
+    autenticacao.show()
     app.exec_()
+    
+    if autenticacao.autenticado:
+        try:
+            window = Home()
+            window.show()
+            app.exec_()
+        except ErroCliente as e:
+            QMessageBox.critical(None, "ERROR", "Impossível conectar ao servidor.")

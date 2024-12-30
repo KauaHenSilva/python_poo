@@ -2,7 +2,7 @@ from typing import Callable, Tuple
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5 import uic
 from src.func.func_produtos import atualizar_produto
-from src.func.sincronizacao import enviar_mensagem_de_sincronizacao
+from src.func.sincronizacao import enviar_mensagem_de_sincronizacao_server
 
 
 class EditarProduto(QMainWindow):
@@ -37,7 +37,7 @@ class EditarProduto(QMainWindow):
             
             if atualizar_produto(produto, self.id):
                 QMessageBox.information(self, "Sucesso", "Produto editado!")
-                enviar_mensagem_de_sincronizacao("sync_produto")
+                enviar_mensagem_de_sincronizacao_server("sync_produto")
                 print("[LOG INFO] Produto editado com sucesso!")
                 self.close()
             else:

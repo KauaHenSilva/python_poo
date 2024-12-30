@@ -1,6 +1,6 @@
 all: databese_up creat_paste_bibs build_bib_funcao_postgree build_bib_sincronizacao_servidor_cliente
-server: all install_requeriments_server run_server
-cliente: all install_requeriments_cliente run_cliente
+server: all install_requeriments run_server
+cliente: all install_requeriments run_cliente
 
 install_depedencia:
 	@sudo apt-get update
@@ -28,28 +28,21 @@ creat_paste_bibs:
 
 build_bib_funcao_postgree:
 	@cd bib_funcao_postgree && make
-	@cp ./bib_funcao_postgree/dist/funcao_postgree-0.1.0-py3-none-any.whl ./cliente/bibs/
-	@cp ./bib_funcao_postgree/dist/funcao_postgree-0.1.0-py3-none-any.whl ./server/bibs/
+	@cp ./bib_funcao_postgree/dist/funcao_postgree-0.1.0-py3-none-any.whl ./cliente_and_server/bibs/
 
 build_bib_sincronizacao_servidor_cliente:
 	@cd bib_sincronizacao_servidor_cliente && make
-	@cp ./bib_sincronizacao_servidor_cliente/dist/sincronizacao_servidor_cliente-0.1.0-py3-none-any.whl ./cliente/bibs/
-	@cp ./bib_sincronizacao_servidor_cliente/dist/sincronizacao_servidor_cliente-0.1.0-py3-none-any.whl ./server/bibs/
+	@cp ./bib_sincronizacao_servidor_cliente/dist/sincronizacao_servidor_cliente-0.1.0-py3-none-any.whl ./cliente_and_server/bibs/
 
-install_requeriments_server:
-	@cd server && pip install bibs/funcao_postgree-0.1.0-py3-none-any.whl --force-reinstall
-	@cd server && pip install bibs/sincronizacao_servidor_cliente-0.1.0-py3-none-any.whl --force-reinstall
-	@cd server && pip install -r requirements.txt
-
-install_requeriments_cliente:
-	@cd cliente && pip install bibs/funcao_postgree-0.1.0-py3-none-any.whl --force-reinstall
-	@cd cliente && pip install bibs/sincronizacao_servidor_cliente-0.1.0-py3-none-any.whl --force-reinstall
-	@cd cliente && pip install -r requirements.txt
+install_requeriments:
+	@cd cliente_and_server && pip install bibs/funcao_postgree-0.1.0-py3-none-any.whl --force-reinstall
+	@cd cliente_and_server && pip install bibs/sincronizacao_servidor_cliente-0.1.0-py3-none-any.whl --force-reinstall
+	@cd cliente_and_server && pip install -r requirements.txt
 
 run_server:
 	@clear
-	@cd server && python3 main.py
+	@cd cliente_and_server && python3 main_server.py
 
 run_cliente:
 	@clear
-	@cd cliente && python3 main.py
+	@cd cliente_and_server && python3 main_cliente.py

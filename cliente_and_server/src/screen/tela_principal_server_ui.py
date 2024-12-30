@@ -5,9 +5,9 @@ from PyQt5 import uic
 
 from .editar_produto_ui import EditarProduto
 from .adicionar_product_ui import AdicionarProducto
-from .exibir_pedido import DialogoExibirProduto
-from src.func.func_pedidos import get_utimos_1000_pedidos, editar_status_pedido
-from src.func.sincronizacao import enviar_mensagem_de_sincronizacao, iniciar_servidor_sincronizado
+from .dialogo_exibir_pedido import DialogoExibirProduto
+from src.func.func_pedido import get_utimos_1000_pedidos, editar_status_pedido
+from src.func.sincronizacao import enviar_mensagem_de_sincronizacao_server, iniciar_servidor_sincronizado
 from src.func.func_produtos import pegar_todos_itens_str, remover_produto, trocar_disponibilidade
 
 class SignalHandler(QObject):
@@ -15,10 +15,10 @@ class SignalHandler(QObject):
     atualizar_pedido = pyqtSignal()
 
 
-class TelaPrincipal(QMainWindow):
+class TelaPrincipalServer(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('src/screen/ui/tela_principal.ui', self)
+        uic.loadUi('src/screen/ui/tela_principal_server.ui', self)
         
         self.signal_handler = SignalHandler()
         self.signal_handler.atualizar_produto.connect(self.atualizar_lista_produto)
@@ -83,10 +83,10 @@ class TelaPrincipal(QMainWindow):
     def sync_tratament(self, msg):
         if msg == 'sync_produto':
             self.signal_handler.atualizar_produto.emit()
-            enviar_mensagem_de_sincronizacao('sync_produto')
+            enviar_mensagem_de_sincronizacao_server('sync_produto')
         elif msg == 'sync_pedido':
             self.signal_handler.atualizar_pedido.emit()
-            enviar_mensagem_de_sincronizacao('sync_pedido')
+            enviar_mensagem_de_sincronizacao_server('sync_pedido')
 
     def atualizar_lista_produto(self):
         print("[LOG INFO] Atualizando lista de produtos")
